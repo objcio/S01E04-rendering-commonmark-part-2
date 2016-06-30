@@ -1,35 +1,24 @@
+//: # Swift Talk Episode 4: Rendering CommonMark (Part 2)
+//:
+//: Check out the full episode and the transcript [here](https://talk.objc.io/episodes/S01E04-rendering-commonmark-part-2)
+//:
+//: To make this playground work you have to run "Product > Build" once to compile the CommonMark module.
+
 import CommonMark
 
 let markdown = "# Heading **strong**\nHello **Markdown**!"
 
 let tree = Node(markdown: markdown)!.elements
 
-dump(tree)
 
 extension Array where Element: NSAttributedString {
-    func join(separator separator: String = "") -> NSAttributedString {
+    public func join(separator separator: String = "") -> NSAttributedString {
         guard !isEmpty else { return NSAttributedString() }
         let result = self[0].mutableCopy() as! NSMutableAttributedString
         for element in suffixFrom(1) {
             result.appendAttributedString(NSAttributedString(string: separator))
             result.appendAttributedString(element)
         }
-        return result
-    }
-}
-
-
-extension UIFont {
-    var bold: UIFont {
-        let boldFontDescriptor = fontDescriptor().fontDescriptorWithSymbolicTraits(.TraitBold)
-        return UIFont(descriptor: boldFontDescriptor, size: 0)
-    }
-}
-
-extension NSAttributedString {
-    func addingAttribute(attribute: String, value: AnyObject) -> NSAttributedString {
-        let result = mutableCopy() as! NSMutableAttributedString
-        result.addAttribute(attribute, value: value, range: NSRange(location: 0, length: result.length))
         return result
     }
 }

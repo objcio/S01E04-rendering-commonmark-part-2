@@ -13,7 +13,7 @@
 
 /* Begin PBXFileReference section */
 		0FA58E2E03BB34B0713E0972 /* Pods-CommonMarkPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonMarkPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonMarkPlayground/Pods-CommonMarkPlayground.debug.xcconfig"; sourceTree = "<group>"; };
-		64D4E475FDF1FC8C75F103DF /* CommonMark.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = CommonMark.playground; sourceTree = "<group>"; };
+		64D4E475FDF1FC8C75F103DF /* Rendering CommonMark.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = "Rendering CommonMark.playground"; sourceTree = "<group>"; };
 		67EBAFF523EF2B6A28011EC8 /* Pods_CommonMarkPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CommonMarkPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C313BDA13BF5F42F1ADCDE5C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD3247C9FDD7FF56725F409E /* CommonMarkPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonMarkPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,7 +38,7 @@
 			children = (
 				D0DB1EAF3C120D5C40C7441B /* Products */,
 				1BC7304EE050823E66BDDF89 /* Frameworks */,
-				64D4E475FDF1FC8C75F103DF /* CommonMark.playground */,
+				64D4E475FDF1FC8C75F103DF /* Rendering CommonMark.playground */,
 				490E65D9242DBA2D8068912C /* Pods */,
 			);
 			sourceTree = "<group>";
