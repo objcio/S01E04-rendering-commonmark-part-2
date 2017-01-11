@@ -12,12 +12,12 @@ let tree = Node(markdown: markdown)!.elements
 
 
 extension Array where Element: NSAttributedString {
-    public func join(separator separator: String = "") -> NSAttributedString {
+    public func join(separator: String = "") -> NSAttributedString {
         guard !isEmpty else { return NSAttributedString() }
         let result = self[0].mutableCopy() as! NSMutableAttributedString
-        for element in suffixFrom(1) {
-            result.appendAttributedString(NSAttributedString(string: separator))
-            result.appendAttributedString(element)
+        for element in suffix(from: 1) {
+            result.append(NSAttributedString(string: separator))
+            result.append(element)
         }
         return result
     }
@@ -35,34 +35,34 @@ extension NSAttributedString {
         let fontDescriptor = UIFontDescriptor(name: attributes.family, size: attributes.size)
         var traits = UIFontDescriptorSymbolicTraits()
         if attributes.bold {
-            traits.unionInPlace(.TraitBold)
+            traits.formUnion(.traitBold)
         }
-        let newFontDescriptor = fontDescriptor.fontDescriptorWithSymbolicTraits(traits)
+        let newFontDescriptor = fontDescriptor.withSymbolicTraits(traits)!
         let font = UIFont(descriptor: newFontDescriptor, size: 0)
         self.init(string: string, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: attributes.color])
     }
 }
 
 class Stylesheet {
-    func strong(inout attributes: Attributes) {
+    func strong( attributes: inout Attributes) {
         attributes.bold = true
-        attributes.color = .redColor()
+        attributes.color = .red
     }
     
-    func heading(inout attributes: Attributes) {
+    func heading( attributes: inout Attributes) {
         attributes.size = 48
     }
 }
 
-extension InlineElement {
+extension Inline {
     func render(stylesheet: Stylesheet, attributes: Attributes) -> NSAttributedString {
         var newAttributes = attributes
         switch self {
-        case .Text(let text):
+        case .text(let text):
             return NSAttributedString(string: text, attributes: attributes)
-        case .Strong(let children):
-            stylesheet.strong(&newAttributes)
-            return children.map { $0.render(stylesheet, attributes: newAttributes) }.join()
+        case .strong(let children):
+            stylesheet.strong(attributes: &newAttributes)
+            return children.map { $0.render(stylesheet: stylesheet, attributes: newAttributes) }.join()
         default:
             fatalError()
         }
@@ -73,20 +73,20 @@ extension Block {
     func render(stylesheet: Stylesheet, attributes: Attributes) -> NSAttributedString {
         var newAttributes = attributes
         switch self {
-        case .Paragraph(let children):
-            return children.map { $0.render(stylesheet, attributes: attributes) }.join()
-        case .Heading(let children, _):
-            stylesheet.heading(&newAttributes)
-            return children.map { $0.render(stylesheet, attributes: newAttributes) }.join()
+        case .paragraph(let children):
+            return children.map { $0.render(stylesheet: stylesheet, attributes: attributes) }.join()
+        case .heading(let children, _):
+            stylesheet.heading(attributes: &newAttributes)
+            return children.map { $0.render(stylesheet: stylesheet, attributes: newAttributes) }.join()
         default:
             fatalError()
         }
     }
 }
 
-let baseAttributes = Attributes(family: "Helvetica", size: 24, bold: false, color: .blackColor())
+let baseAttributes = Attributes(family: "Helvetica", size: 24, bold: false, color: .black)
 let stylesheet = Stylesheet()
-let output = tree.map { $0.render(stylesheet, attributes: baseAttributes) }.join(separator: "\n")
+let output = tree.map { $0.render(stylesheet: stylesheet, attributes: baseAttributes) }.join(separator: "\n")
 
 output
 
